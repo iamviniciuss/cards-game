@@ -26,20 +26,23 @@ class Login extends Component {
 
 
 	login() {
-
 		const post = {
 			email: this.refs.email.value,
 			senha: this.refs.senha.value,
 		}
 		console.log(post);
 
-		api.login(post)
-			.then((res) => {
-				console.log(res.data)
-				sessionStorage.setItem('apikey' , res.data.email);
-				window.location.href = '/'
-
-			})
+		api.LoginUsuario(post)
+		.then((res) => {
+			console.log(res.data)
+			sessionStorage.setItem('usuario' , JSON.stringify(res.data));
+			window.location.href = '/salas'
+		})
+		.catch(function (error , data) {
+			// handle error
+			console.log(error);
+			console.log(data);
+		  })
 	}
 
 	render() {

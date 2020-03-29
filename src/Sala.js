@@ -6,7 +6,7 @@ class Sala extends Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {
+		this.state = {	
 			cartas:[],
 			isLoading: false,
 			left:0
@@ -18,7 +18,8 @@ class Sala extends Component {
 	}
 
 	carregarCartasUsuario(){
-		api.cartasUsuarioSala(1,1)
+		const usuario = JSON.parse(sessionStorage.getItem('usuario'))
+		api.cartasUsuarioSala(usuario.id,this.props.match.params.id)
 		.then((res) => {
 			console.log(res)
 			this.setState({
@@ -37,14 +38,18 @@ class Sala extends Component {
 
 	cartas(data){
 		console.log(data)
-		let margin_left =  50 * data.id;
+		let margin_left =  50 * (data.id/10);
 		console.log(margin_left)
 		
 		const styleDivs = { width:100,position:'relative',left:`-${margin_left}px`}
-	
-		return (
-			<img src={data.card} width="100" style={styleDivs} />
-		);
+		try {
+			return (
+				<img key={data.id}	 src={data.card} width="100" style={styleDivs} />
+			);
+		} catch (error) {
+			
+		}
+		
 	}
 
 	render() {
@@ -59,8 +64,8 @@ class Sala extends Component {
 					{
 						this.state.isLoading && 
 
-						<div class="spinner-border" role="status">
-							<span class="sr-only">Loading...</span>
+						<div className="spinner-border" role="status">
+							<span className="sr-only">Loading...</span>
 						</div>
 					}
 					{

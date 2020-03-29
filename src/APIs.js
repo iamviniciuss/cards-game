@@ -15,6 +15,10 @@ export const cartasUsuarioSala = async function(usuario_id , sala_id){
 	return await api.get(`usuario/${usuario_id}/sala/${sala_id}`);
 }
 
+export const LoginUsuario = async function(data){
+	return await api.post(`autenticate` , data);
+}
+
 
 // export const saveSerie 			= (newSerie) => api.post('series',newSerie);
 // export const loadGenresByGenre 	= (genre) 	 => api.post('seriesByGenero', genre);
@@ -24,7 +28,8 @@ export const cartasUsuarioSala = async function(usuario_id , sala_id){
 
 const apis = {
 	salasList : salasList,
-	cartasUsuarioSala : cartasUsuarioSala
+	cartasUsuarioSala : cartasUsuarioSala,
+	LoginUsuario:LoginUsuario
 }
 
 export default apis;
